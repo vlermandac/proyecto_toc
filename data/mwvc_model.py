@@ -26,10 +26,10 @@ def mwvc(graph, weights, filename):
 
     # writes to output file
     with open(filename, 'w') as lp_file:
-        lp_file.write("maximize\nOBJ:" + "".join([f" + 1 x{node+1}" for node in range(len(graph))]) + "\n")
+        lp_file.write("maximize\nOBJ:" + "".join([f" + {w[node]}x{node+1}" for node in range(graph.number_of_nodes])) + "\n")
         lp_file.write("\nsubject to\n")
-        for count, group in enumerate(inequalities):
+        for count, group in enumerate(edges):
             lp_file.write(f"C{count+1}:" + "".join([f" + x{node+1}" for node in sorted(group)]) + " <= 1\n")
-        lp_file.write("\nbinary\n" + " ".join([f"x{node+1}" for node in range(len(graph))]) + "\n")
+        lp_file.write("\nbinary\n" + " ".join([f"x{node+1}" for node in range(graph.number_of_nodes)]) + "\n")
 
 

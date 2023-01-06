@@ -7,8 +7,8 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import torch_geometric
-import strong_branching
-import generate_mwvc
+from strong_branching import ExploreThenStrongBranch
+import generate_mwvc as mwvc
 
 DATA_MAX_SAMPLES = 1000
 LEARNING_RATE = 0.001
@@ -17,7 +17,7 @@ NB_EVAL_INSTANCES = 20
 
 # Generate mwvc model instances
 node_number = 10
-mwvc = mwvc_scip(10)
+mwvc = mwvc.mwvc_scip(10)
 
 # We can pass custom SCIP parameters easily
 scip_parameters = {

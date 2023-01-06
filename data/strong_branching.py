@@ -1,3 +1,5 @@
+import ecole
+
 class ExploreThenStrongBranch:
     """
     This custom observation function class will randomly return either strong branching scores (expensive expert)

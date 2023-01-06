@@ -26,6 +26,8 @@ class mwvc_scip:
             for e in node_edges:
                 if random.random() < 0.5:
                     G.add_edge(*e)
+        
+        
         return G
 
 
@@ -36,26 +38,30 @@ class mwvc_scip:
             edges = np.array(graph.edges)
 
             x = [0] * len(vertices)
-
+            
 
             labels =  {n: graph.nodes[n]['weight'] for n in graph.nodes}
             w =  list(labels.values())
-
+            
 
             # decision variables
             for v in vertices:
                 x[v] = model.addVar(vtype='B')
 
             # objective function
-
-            print('*'*40)
+           
             model.setObjective(quicksum(w[v]*x[v] for v in vertices), sense='minimize')
 
             # constraints
             for u,v in edges:
                 model.addCons(x[u]+ x[v] >= 1)
+            model = ecole.scip.Model.from_pyscipopt(model)
             return model
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+        
     instancia = mwvc_scip(10)
+
     print(instancia.generate_model())
+   
+   

@@ -8,16 +8,17 @@ import torch
 import torch.nn.functional as F
 import torch_geometric
 from strong_branching import ExploreThenStrongBranch
-import generate_mwvc as mwvc
+import generate_mwvc as mwvc_m
+import numpy as np
+
 
 DATA_MAX_SAMPLES = 1000
-LEARNING_RATE = 0.001
-NB_EPOCHS = 50
-NB_EVAL_INSTANCES = 20
 
 # Generate mwvc model instances
-node_number = 10
-mwvc = mwvc.mwvc_scip(10)
+node_number = 150
+mwvc = mwvc_m.mwvc_scip(node_number)
+
+
 
 # We can pass custom SCIP parameters easily
 scip_parameters = {
@@ -44,7 +45,7 @@ Path("samples/").mkdir(exist_ok=True)
 # We will solve problems (run episodes) until we have saved enough samples
 while sample_counter < DATA_MAX_SAMPLES:
     episode_counter += 1
-
+  
     observation, action_set, _, done, _ = env.reset(mwvc.generate_model())
     while not done:
         (scores, scores_are_expert), node_observation = observation

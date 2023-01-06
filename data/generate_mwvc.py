@@ -61,7 +61,8 @@ class mwvc_scip:
 if __name__ == "__main__":
         
     instancia = mwvc_scip(10)
-
-    print(instancia.generate_model())
+    modelo = instancia.generate_model()
+    #print(instancia.generate_model())
+    print(modelo.solve()) 
    
    
